@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="lab_03" />
+		<Option pch_mode="2" />
+		<Option compiler="mingw-w64_gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/lab_03" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="mingw-w64_gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/lab_03" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="mingw-w64_gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-static" />
+			<Add option="-static-libgcc" />
+			<Add option="-static-libstdc++" />
+			<Add directory="E:/РПОСУ/ЛР 4.1/lab_03/curl/include" />
+		</Compiler>
+		<Linker>
+			<Add library="libcurl.dll.a" />
+			<Add directory="E:/РПОСУ/ЛР 4.1/lab_03/curl/lib" />
+		</Linker>
+		<Unit filename=".gitignore" />
+		<Unit filename="histogram.cpp" />
+		<Unit filename="histogram.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
