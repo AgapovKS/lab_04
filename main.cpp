@@ -1,6 +1,14 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 #include "histogram.h"
+#include <curl/curl.h>
+#include <sstream>
+#include <string>
+#include <windows.h>
+#include <stdio.h>
+#include <math.h>
+
 using namespace std;
 vector<double> input_numbers(istream& in, size_t count)
 {
@@ -68,6 +76,7 @@ vector<size_t> make_histogram(Input data)
 }
 int
 main() {
+    curl_global_init(CURL_GLOBAL_ALL);
     size_t number_count;
     const auto input = read_input(cin, true);
     const auto bins = make_histogram(input);
