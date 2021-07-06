@@ -74,11 +74,20 @@ vector<size_t> make_histogram(Input data)
         bins[bin]++;
     }
 }
-int
-main() {
-    curl_global_init(CURL_GLOBAL_ALL);
-    size_t number_count;
-    const auto input = read_input(cin, true);
+int main(int argc, char* argv[])
+{
+    Input input;
+    if(argc>1)
+    {
+        input = download(argv[1]);
+    }
+    else
+    {
+        input = read_input(cin,true);
+    }
+
     const auto bins = make_histogram(input);
     show_histogram_svg(bins, number_count);
+    return 0;
 }
+
