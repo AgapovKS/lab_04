@@ -2,6 +2,7 @@
 #include <vector>
 #include <iomanip>
 #include "histogram.h"
+#include "svg.h"
 #include <curl/curl.h>
 #include <sstream>
 #include <string>
