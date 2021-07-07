@@ -45,8 +45,8 @@ double domashnee (size_t number_count, double BLOCK_WIDTH,  istream& in)
             cerr<<"Vvedite shirinu zanovo, tk ona menshe treti kolichestva, umnozhennih na BLOCK_WIDTH. ";
         cerr<<"Novoe znachenie shirini: ";
         in>>IMAGE_WIDTH;
-    return IMAGE_WIDTH;
-}
+        return IMAGE_WIDTH;
+    }
 
 }
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
@@ -62,10 +62,10 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     double top = 0;
     size_t  max = 0;
     for (size_t count : bins)
-        {
+    {
         if (count > max)
             max = count;
-        }
+    }
     const bool scaling1 = (max*BLOCK_WIDTH) > (IMAGE_WIDTH-TEXT_WIDTH);
     if (scaling1)
     {
