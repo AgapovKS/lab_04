@@ -49,6 +49,17 @@ double domashnee (size_t number_count, double BLOCK_WIDTH,  istream& in)
     }
 
 }
+string
+make_info_text() {
+
+stringstream buffer;
+
+    DWORD info = GetVersion();
+printf("n = %08x\n",info); //16
+    printf("%u \n", info);//10
+
+return buffer.str();
+}
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
 {
     const auto IMAGE_HEIGHT = 300;
