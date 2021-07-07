@@ -124,8 +124,13 @@ download(const string& address) {
 
     return read_input(buffer, false);
 }
+
 int main(int argc, char* argv[])
-{
+{cout<<endl;
+const char* name = "Commander Shepard";
+int year = 2154;
+printf("%s was born in %d.\n", name, year);
+cout<<endl;
     Input input;
     size_t  number_count;
     if (argc > 1)

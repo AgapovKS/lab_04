@@ -49,6 +49,14 @@ double domashnee (size_t number_count, double BLOCK_WIDTH,  istream& in)
     }
 
 }
+string
+make_info_text() {
+    stringstream buffer;
+    // TODO: получить версию системы, записать в буфер.
+    // TODO: получить имя компьютера, записать в буфер.
+    return buffer.str();
+}
+
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
 {
     const auto IMAGE_HEIGHT = 300;
@@ -95,6 +103,6 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
             top += BIN_HEIGHT;
         }
     }
-
+svg_text(0, top + TEXT_BASELINE, make_info_text());
     svg_end();
 }
