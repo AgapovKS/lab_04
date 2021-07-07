@@ -1,17 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
-#include "histogram.h"
-#include "svg.h"
-#include <curl/curl.h>
-#include <sstream>
 #include <string>
-#include <windows.h>
-#include <stdio.h>
+#include <sstream>
 #include <math.h>
+#include <curl/curl.h>
+#include "histogram.h"
 
+#include "svg.h"
+
+const size_t SCREEN_WIDTH = 80;
+const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
 using namespace std;
-vector<double> input_numbers(istream& in, size_t count)
+
+vector<double>
+input_numbers(istream& in, size_t count)
 {
     vector<double> result(count);
     for (size_t i = 0; i < count; i++)
@@ -21,48 +23,25 @@ vector<double> input_numbers(istream& in, size_t count)
     return result;
 }
 Input
-read_input(istream& in, bool prompt)
-{
+read_input(istream& in, bool promt) {
     Input data;
-
-    if (prompt)
-        cerr << "Enter number count: ";
+    if(promt)
+    cerr << "Enter number count: ";
     size_t number_count;
     in >> number_count;
-    if (prompt)
-        cerr << "Enter numbers: ";
+    if(promt)
+    cerr << "Enter numbers: ";
     data.numbers = input_numbers(in, number_count);
-    if (prompt)
-        cerr << "Enter bin count: ";
+    if(promt)
+    cerr << "Enter bin count: ";
     in >> data.bin_count;
     return data;
-
 }
-void show_histogram_text(const vector<size_t>& bins)
+vector <size_t> make_histogram(const Input& data)
 {
-    const size_t SCREEN_WIDTH = 80;
-    const size_t MAX_ASTERISK = SCREEN_WIDTH - 3 - 1;
-
-
-    size_t bin_count=bins.size();
-    for (size_t i=0; i<bin_count; i++)
-    {
-        if (bins[i]<100)
-            cout<<" ";
-        if (bins[i]<10)
-            cout<<" ";
-        cout<<bins[i]<<"|";
-        for (size_t j=0; j<bins[i]; j++)
-            cout<<"*";
-        cout<<endl;
-    }
-}
-vector<size_t> make_histogram(const Input& data)
-{
-    size_t number_count=data.numbers.size();
-    vector<size_t> result(data.bin_count);
-
-    double min, max;
+    double min;
+    double max;
+    vector <size_t> result(data.bin_count);
     find_minmax(data.numbers, min, max);
     for (double number : data.numbers)
     {
@@ -75,19 +54,45 @@ vector<size_t> make_histogram(const Input& data)
     }
     return result;
 }
-size_t write_data(void* items, size_t item_size, size_t item_count, void* ctx)
+void show_histogram_text(vector <size_t> bins, const size_t MAX_ASTERISK)
 {
-
-
-    auto data_size = item_size * item_count;
-
+    size_t bin_count = bins.size();
+    size_t  Max = bins[0];
+    for (size_t  j=1; j<bin_count; j++)
+    {
+        if (bins[j]>Max)
+            Max = bins[j];
+    }
+    for (size_t  j=0; j<bin_count; j++)
+    {
+        if(bins[j]>=100)
+            cout<<bins[j];
+        if (bins[j]<10)
+            cout <<"  "<< bins[j];
+        else if (bins[j]<100)
+            cout<< " "<< bins[j] ;
+        cout << "|";
+        if(Max>MAX_ASTERISK)
+        {
+            size_t  height = MAX_ASTERISK * (static_cast<double>(bins[j]) / Max);
+            for (size_t  a=0; a<height; a++)
+            {
+                cout << "*";
+            }
+        }
+        else
+            for(size_t a=0; a<bins[j]; a++)
+                cout << "*";
+        cout << endl;
+    }
+}
+size_t
+write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
+    size_t data_size = item_size * item_count;
     stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
-
     buffer->write(reinterpret_cast<const char*>(items), data_size);
-
     return data_size;
 }
-
 Input
 download(const string& address) {
     stringstream buffer;
@@ -112,29 +117,29 @@ download(const string& address) {
                 curtime= curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &curtime);
                 if(!res)
                 {
-                 cout << "total time spent downloading the file:" << curtime << "\n";
+                 cerr << "total time spent downloading the file:" << curtime << "\n";
                 }
             }
         }
 
     return read_input(buffer, false);
 }
-
-
 int main(int argc, char* argv[])
 {
     Input input;
-    if(argc>1)
+    size_t  number_count;
+    if (argc > 1)
     {
         input = download(argv[1]);
     }
-    else
+     else
     {
-        input = read_input(cin,true);
+        input = read_input(cin, true);
     }
-size_t number_count;
+    size_t  bin_count;
     const auto bins = make_histogram(input);
-    show_histogram_svg(bins, number_count);
+    string stroke;
+    string fill;
+    show_histogram_svg(bins, bin_count, number_count,stroke,fill);
     return 0;
 }
-

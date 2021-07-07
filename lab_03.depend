@@ -9,25 +9,21 @@
 	<iomanip>
 	<iostream>
 
-1625600128 source:e:\поняс\кп 4.1\lab_03\histogram.cpp
+1625685498 source:e:\поняс\кп 4.1\lab_03\histogram.cpp
 	"histogram.h"
 
-1625650606 e:\поняс\кп 4.1\lab_03\histogram.h
+1625685634 e:\поняс\кп 4.1\lab_03\histogram.h
 	<vector>
-	<iomanip>
-	<iostream>
 
-1625595272 source:e:\поняс\кп 4.1\lab_03\main.cpp
+1625689064 source:e:\поняс\кп 4.1\lab_03\main.cpp
 	<iostream>
 	<vector>
-	<iomanip>
-	"histogram.h"
-	<curl/curl.h>
-	<sstream>
 	<string>
-	<windows.h>
-	<stdio.h>
+	<sstream>
 	<math.h>
+	<curl/curl.h>
+	"histogram.h"
+	"svg.h"
 
 1621918820 e:\поняс\кп 4.1\lab_03\curl\include\curl\curl.h
 	"curlver.h"
@@ -70,4 +66,20 @@
 1618201874 e:\поняс\кп 4.1\lab_03\curl\include\curl\options.h
 
 1621918820 e:\поняс\кп 4.1\lab_03\curl\include\curl\typecheck-gcc.h
+
+1625689064 e:\поняс\кп 4.1\lab_03\svg.h
+	<iostream>
+	<vector>
+	<string>
+	<sstream>
+	<windows.h>
+
+1625686474 source:e:\поняс\кп 4.1\lab_03\svg.cpp
+	"svg.h"
+	<string>
+	<sstream>
+	<windows.h>
+
+1625685498 e:\поняс\кп 4.1\lab_03\histogram.cpp
+	"histogram.h"
 
