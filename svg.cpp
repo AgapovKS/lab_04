@@ -55,13 +55,28 @@ make_info_text() {
 stringstream buffer;
 
     DWORD info = GetVersion();
-printf("n = %08x\n",info); //16
-    printf("%u \n", info);//10
+printf("n = %08x\n",info);
+    printf("%u \n", info);
 DWORD mask = 0b00000000'00000000'11111111'11111111;
     DWORD version = info & mask;
+DWORD mask1 = 0x0000ffff;
+    DWORD platform = info >> 16;
+if ((info & 0x80000000) == 0)
+    {
+        DWORD version_major = version & mask1;
+        DWORD version_minor = version >> 8;
+        DWORD build = platform;
+        buffer << "Windows v" << version_major << "." << version_minor << " (build " << build << ")"<<" \n ";
+    }
 
-return buffer.str();
+    DWORD size = MAX_COMPUTERNAME_LENGTH+1;
+    char computer_name[size];
+    GetComputerNameA(computer_name, &size);
+    buffer << "Computer name: " << computer_name;
+
+    return buffer.str();
 }
+
 void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  number_count, string& stroke, string& fill)
 {
     const auto IMAGE_HEIGHT = 300;
