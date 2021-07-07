@@ -57,6 +57,8 @@ stringstream buffer;
     DWORD info = GetVersion();
 printf("n = %08x\n",info); //16
     printf("%u \n", info);//10
+DWORD mask = 0b00000000'00000000'11111111'11111111;
+    DWORD version = info & mask;
 
 return buffer.str();
 }
