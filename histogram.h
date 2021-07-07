@@ -4,7 +4,11 @@
 #include <iostream>
 #define HISTOGRAM_H_INCLUDED
 using namespace std;
-struct Input {  vector<double> numbers; size_t bin_count;};
+struct Input
+{
+    vector<double> numbers;
+    size_t bin_count;
+};
 void find_minmax(const vector<double>& numbers, double& min, double& max);
 void show_histogram_svg(const vector<size_t>& bins, size_t number_count);
 void svg_end();

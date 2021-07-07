@@ -9,15 +9,15 @@
 	<iomanip>
 	<iostream>
 
-1624735352 source:e:\поняс\кп 4.1\lab_03\histogram.cpp
+1625600128 source:e:\поняс\кп 4.1\lab_03\histogram.cpp
 	"histogram.h"
 
-1625479582 e:\поняс\кп 4.1\lab_03\histogram.h
+1625650606 e:\поняс\кп 4.1\lab_03\histogram.h
 	<vector>
 	<iomanip>
 	<iostream>
 
-1625519380 source:e:\поняс\кп 4.1\lab_03\main.cpp
+1625595272 source:e:\поняс\кп 4.1\lab_03\main.cpp
 	<iostream>
 	<vector>
 	<iomanip>

@@ -31,10 +31,10 @@ read_input(istream& in, bool prompt)
     if (prompt)
         cerr << "Enter numbers: ";
     data.numbers = input_numbers(in, number_count);
-    return data;
     if (prompt)
         cerr << "Enter bin count: ";
     in >> data.bin_count;
+    return data;
 
 }
 void show_histogram_text(const vector<size_t>& bins)
@@ -56,11 +56,10 @@ void show_histogram_text(const vector<size_t>& bins)
         cout<<endl;
     }
 }
-vector<size_t> make_histogram(Input data)
+vector<size_t> make_histogram(const Input& data)
 {
     size_t number_count=data.numbers.size();
-    vector<size_t> bins(data.bin_count);
-    cerr<< "cerr "<<data.bin_count;
+    vector<size_t> result(data.bin_count);
 
     double min, max;
     find_minmax(data.numbers, min, max);
@@ -71,30 +70,55 @@ vector<size_t> make_histogram(Input data)
         {
             bin--;
         }
-        bins[bin]++;
+        result[bin]++;
     }
+    return result;
 }
-Input
-download(const string& address)
+size_t write_data(void* items, size_t item_size, size_t item_count, void* ctx)
 {
+
+
+    auto data_size = item_size * item_count;
+
+    stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
+
+    buffer->write(reinterpret_cast<const char*>(items), data_size);
+
+    return data_size;
+}
+
+Input
+download(const string& address) {
     stringstream buffer;
-        CURL *curl = curl_easy_init();
-        if(curl)
+    curl_global_init(CURL_GLOBAL_ALL);
+    CURL *curl = curl_easy_init();
+    if(curl)
         {
             CURLcode res;
             curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
+            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
             res = curl_easy_perform(curl);
-            if (res != 0)
+            curl_easy_cleanup(curl);
+            if(res)
             {
-
-                cerr<< "curl_easy_perform() failed: "<< curl_easy_strerror(res);
-
+                cout << curl_easy_strerror(res);
                 exit(1);
             }
-
-            curl_easy_cleanup(curl);
+            else
+            {
+                double curtime = 0;
+                curtime= curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &curtime);
+                if(!res)
+                {
+                 cout << "total time spent downloading the file:" << curtime << "\n";
+                }
+            }
         }
+
+    return read_input(buffer, false);
 }
+
 
 int main(int argc, char* argv[])
 {
