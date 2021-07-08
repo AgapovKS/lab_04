@@ -99,15 +99,11 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     {
         const double scaling2 = (double)(IMAGE_WIDTH-TEXT_WIDTH) / (max*BLOCK_WIDTH);
         cerr << "scaling="<<scaling2;
-        //cerr << "MAX_ASTERISK="<<MAX_ASTERISK;
-        //cerr << "Max="<<max;
         for (size_t bin : bins)
         {
-          //  cerr <<"bin="<<bin<<"\n";
             auto  height = (size_t)(bin * scaling2);
-           // cerr << "height=" << height<<"\n";
+
             const double bin_width = BLOCK_WIDTH * height;
-         //   cerr << "bin_width=" << bin_width<<"\n";
             svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
             svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black", "#blue");
             top += BIN_HEIGHT;
