@@ -98,7 +98,6 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     if (scaling1)
     {
         const double scaling2 = (double)(IMAGE_WIDTH-TEXT_WIDTH) / (max*BLOCK_WIDTH);
-        cerr << "scaling="<<scaling2;
         for (size_t bin : bins)
         {
             auto  height = (size_t)(bin * scaling2);
