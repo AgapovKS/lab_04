@@ -33,7 +33,7 @@ svg_end()
 double domashnee (size_t number_count, double BLOCK_WIDTH,  istream& in)
 {
     int IMAGE_WIDTH;
-    cerr<<IMAGE_WIDTH;
+    cerr<<"IMAGE_WIDTH= ";
     in >> IMAGE_WIDTH;
     while (IMAGE_WIDTH<70 || IMAGE_WIDTH>800 ||IMAGE_WIDTH<(number_count/3.0*BLOCK_WIDTH))
     {
@@ -99,15 +99,15 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
     {
         const double scaling2 = (double)(IMAGE_WIDTH-TEXT_WIDTH) / (max*BLOCK_WIDTH);
         cerr << "scaling="<<scaling2;
-        cerr << "MAX_ASTERISK="<<MAX_ASTERISK;
-        cerr << "Max="<<max;
+        //cerr << "MAX_ASTERISK="<<MAX_ASTERISK;
+        //cerr << "Max="<<max;
         for (size_t bin : bins)
         {
-            cerr <<"bin="<<bin<<"\n";
+          //  cerr <<"bin="<<bin<<"\n";
             auto  height = (size_t)(bin * scaling2);
-            cerr << "height=" << height<<"\n";
+           // cerr << "height=" << height<<"\n";
             const double bin_width = BLOCK_WIDTH * height;
-            cerr << "bin_width=" << bin_width<<"\n";
+         //   cerr << "bin_width=" << bin_width<<"\n";
             svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
             svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black", "#blue");
             top += BIN_HEIGHT;
@@ -123,6 +123,6 @@ void show_histogram_svg(const vector <size_t>& bins, double bin_count, size_t  n
             top += BIN_HEIGHT;
         }
     }
-
+    svg_text(0, top + TEXT_BASELINE, make_info_text());
     svg_end();
 }
